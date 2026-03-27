@@ -1,0 +1,172 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1749012323
+    default.custom: 1774597433
+    key_bindings: 1749012324
+    key_bindings.custom: 0
+    punctuation: 1749012323
+    punctuation.custom: 0
+    terra_pinyin_onion.custom: 0
+    terra_pinyin_onion.schema: 1772533569
+engine:
+  filters:
+    - uniquifier
+  processors:
+    - ascii_composer
+    - recognizer
+    - key_binder
+    - speller
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - punct_translator
+    - script_translator
+key_binder:
+  bindings:
+    - {accept: "Control+slash", select: liur, when: always}
+    - {accept: period, send: period, when: has_menu}
+    - {accept: "Control+period", toggle: simplification, when: always}
+    - {accept: "Control+apostrophe", toggle: liu_w2c, when: always}
+    - {accept: "Control+comma", toggle: extended_charset, when: always}
+    - {accept: "Shift+space", toggle: full_shape, when: always}
+    - {accept: KP_1, send: 1, when: has_menu}
+    - {accept: KP_2, send: 2, when: has_menu}
+    - {accept: KP_3, send: 3, when: has_menu}
+    - {accept: KP_4, send: 4, when: has_menu}
+    - {accept: KP_5, send: 5, when: has_menu}
+    - {accept: KP_6, send: 6, when: has_menu}
+    - {accept: KP_7, send: 7, when: has_menu}
+    - {accept: KP_8, send: 8, when: has_menu}
+    - {accept: KP_9, send: 9, when: has_menu}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+  import_preset: default
+menu:
+  alternative_select_keys: 123456789
+  page_size: 9
+punctuator:
+  full_shape:
+    " ": {commit: "　"}
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": ["＃", "⌘"]
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["％", "°", "℃"]
+    "&": "＆"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["＊", "·", "・", "×", "※", "❂"]
+    "+": "＋"
+    ",": {commit: "，"}
+    "-": "－"
+    .: {commit: "。"}
+    "/": ["／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "＝"
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": ["＠", "☯"]
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "｀"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": "～"
+  half_shape:
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": "#"
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["%", "％", "°", "℃"]
+    "&": "&"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["*", "＊", "·", "・", "×", "※", "❂"]
+    "+": "+"
+    ",": {commit: "，"}
+    "-": "-"
+    .: {commit: "。"}
+    "/": ["、", "/", "／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "="
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": "@"
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "\\", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "`"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "|", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": ["~", "～"]
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+schema:
+  author:
+    - "洋蔥"
+  description: |
+    地球拼音洋蔥版，針對台灣用語調整
+
+  name: "地球拼音洋蔥版"
+  schema_id: terra_pinyin_onion
+  version: 202510
+speller:
+  algebra:
+    - "erase/^xx$/"
+    - "xform/^r5$/er5/"
+    - "abbrev/^([a-z]).+$/$1/"
+    - "abbrev/^([zcs]h).+$/$1/"
+    - "derive/^([nl])ve$/$1ue/"
+    - "derive/^([jqxy])u/$1v/"
+    - "derive/un$/uen/"
+    - "derive/ui$/uei/"
+    - "derive/iu$/iou/"
+    - "derive/([aeiou])ng$/$1gn/"
+    - "derive/ong$/on/"
+    - "derive/ao$/oa/"
+    - "derive/([iu])a(o|n)$/$1$2a/"
+    - "derive/^([a-z]+)\\d$/$1/"
+    - "derive/1$/-/"
+    - "derive/2$/\\//"
+    - "derive/3$/</"
+    - "derive/4$/'/"
+    - "derive/1$/;/"
+    - "derive/3$/,/"
+  alphabet: zyxwvutsrqponmlkjihgfedcba12345
+  delimiter: " '"
+translator:
+  comment_format:
+    - "xform/([a-z]+)\\d/$1/"
+  dictionary: terra_pinyin_onion
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"
+  prism: terra_pinyin_onion
+  spelling_hints: 5

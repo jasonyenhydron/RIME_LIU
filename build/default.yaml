@@ -1,0 +1,138 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1749012324
+    default.custom: 1774597433
+    key_bindings: 1749012324
+    key_bindings.custom: 0
+    punctuation: 1749012324
+    punctuation.custom: 0
+ascii_composer:
+  good_old_caps_lock: true
+  switch_key:
+    Caps_Lock: clear
+    Control_L: noop
+    Control_R: noop
+    Eisu_toggle: clear
+    Shift_L: commit_code
+    Shift_R: commit_code
+  "switcher/hotkeys":
+    - "Control+grave"
+    - "Control+Shift+grave"
+    - F4
+config_version: 0.40
+key_binder:
+  bindings:
+    - {accept: "Control+slash", select: liur, when: always}
+    - {accept: period, send: period, when: has_menu}
+    - {accept: "Control+period", toggle: simplification, when: always}
+    - {accept: "Control+apostrophe", toggle: liu_w2c, when: always}
+    - {accept: "Control+comma", toggle: extended_charset, when: always}
+    - {accept: "Shift+space", toggle: full_shape, when: always}
+    - {accept: KP_1, send: 1, when: has_menu}
+    - {accept: KP_2, send: 2, when: has_menu}
+    - {accept: KP_3, send: 3, when: has_menu}
+    - {accept: KP_4, send: 4, when: has_menu}
+    - {accept: KP_5, send: 5, when: has_menu}
+    - {accept: KP_6, send: 6, when: has_menu}
+    - {accept: KP_7, send: 7, when: has_menu}
+    - {accept: KP_8, send: 8, when: has_menu}
+    - {accept: KP_9, send: 9, when: has_menu}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+menu:
+  alternative_select_keys: 123456789
+  page_size: 9
+punctuator:
+  full_shape:
+    " ": {commit: "　"}
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": ["＃", "⌘"]
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["％", "°", "℃"]
+    "&": "＆"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["＊", "·", "・", "×", "※", "❂"]
+    "+": "＋"
+    ",": {commit: "，"}
+    "-": "－"
+    .: {commit: "。"}
+    "/": ["／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "＝"
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": ["＠", "☯"]
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "｀"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": "～"
+  half_shape:
+    "!": {commit: "！"}
+    "\"": {pair: ["“", "”"]}
+    "#": "#"
+    "$": ["￥", "$", "€", "£", "¥", "¢", "¤"]
+    "%": ["%", "％", "°", "℃"]
+    "&": "&"
+    "'": {pair: ["‘", "’"]}
+    "(": "（"
+    ")": "）"
+    "*": ["*", "＊", "·", "・", "×", "※", "❂"]
+    "+": "+"
+    ",": {commit: "，"}
+    "-": "-"
+    .: {commit: "。"}
+    "/": ["、", "/", "／", "÷"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": ["《", "〈", "«", "‹"]
+    "=": "="
+    ">": ["》", "〉", "»", "›"]
+    "?": {commit: "？"}
+    "@": "@"
+    "[": ["「", "【", "〔", "［"]
+    "\\": ["、", "\\", "＼"]
+    "]": ["」", "】", "〕", "］"]
+    "^": {commit: "……"}
+    _: "——"
+    "`": "`"
+    "{": ["『", "〖", "｛"]
+    "|": ["·", "|", "｜", "§", "¦"]
+    "}": ["』", "〗", "｝"]
+    "~": ["~", "～"]
+recognizer:
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+schema_list:
+  - schema: liur
+  - schema: easy_en
+switcher:
+  abbreviate_options: true
+  caption: "〔方案選單〕"
+  fix_schema_list_order: true
+  fold_options: true
+  hotkeys:
+    - "Control+grave"
+    - "Control+Shift+grave"
+    - F4
+  option_list_separator: "／"
+  save_options:
+    - full_shape
+    - ascii_punct
+    - simplification
+    - extended_charset
+    - zh_hant
+    - zh_hans
+    - zh_hant_tw

@@ -1,0 +1,369 @@
+__build_info:
+  rime_version: 1.13.1
+  timestamps:
+    default: 1749012324
+    default.custom: 1774597433
+    key_bindings: 1749012324
+    key_bindings.custom: 0
+    liur.custom: 1772533570
+    liur.schema: 1772533570
+    punctuation: 1749012324
+    punctuation.custom: 0
+code_decode:
+  alphabet: "abcdefghijklmnopqrstuvwxyz-;,'"
+  prefix: ",,x"
+  suffix: ""
+  tag: code_decode
+  tips: "《解碼》▸"
+engine:
+  filters:
+    - "lua_filter@liu_custom_word_filter"
+    - "lua_filter@liu_charset_filter"
+    - "simplifier@liu_w2c"
+    - "reverse_lookup_filter@phonetic_reverse_lookup"
+    - simplifier
+    - "lua_filter@liu_extended_filter"
+    - "lua_filter@liu_remove_trad_in_w2c"
+    - "lua_filter@liu_w2c_sorter"
+    - "lua_filter@liu_vrsf_hint"
+    - "lua_filter@liu_quick_hint"
+    - "lua_filter@liu_phonetic_suffix_filter"
+    - "simplifier@zh_tw"
+    - "lua_filter@liu_phonetic_override"
+    - "lua_filter@liu_help_filter"
+    - "lua_filter@liu_fancy_filter"
+    - "lua_filter@liu_english_case_filter"
+    - "lua_filter@liu_english_filter"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - "lua_processor@liu_tilde_processor"
+    - "lua_processor@liu_fancy_processor"
+    - "lua_processor@liu_extended_backspace"
+    - "lua_processor@liu_symbols_number_processor"
+    - recognizer
+    - "lua_processor@liu_quick_mode_processor"
+    - "lua_processor@liu_phonetic_suffix_processor"
+    - "lua_processor@liu_gc_processor"
+    - predictor
+    - key_binder
+    - speller
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - ascii_segmentor
+    - matcher
+    - "lua_segmentor@liu_extended_segmentor"
+    - "affix_segmentor@extended_mode"
+    - "affix_segmentor@fancy_number"
+    - "affix_segmentor@fancy_upper"
+    - "affix_segmentor@fancy_lower"
+    - "affix_segmentor@fancy_title"
+    - "affix_segmentor@number_variant"
+    - "affix_segmentor@symbols"
+    - "affix_segmentor@code_decode"
+    - "affix_segmentor@help_mode"
+    - abc_segmentor
+    - "affix_segmentor@mkst"
+    - "affix_segmentor@liurqry"
+    - "affix_segmentor@pinyin"
+    - fallback_segmentor
+  translators:
+    - predict_translator
+    - "lua_translator@liu_help_translator"
+    - "lua_translator@liu_letter_variants"
+    - "lua_translator@liu_datetime"
+    - "lua_translator@liu_fancy_translator"
+    - "lua_translator@date_translator"
+    - "lua_translator@liu_phonetic_suffix_translator"
+    - "lua_translator@liu_code_decoder_translator"
+    - "table_translator@mkst"
+    - "table_translator@fixed"
+    - "table_translator@liurqry"
+    - "lua_translator@liu_custom_word_translator"
+    - table_translator
+    - "script_translator@pinyin"
+extended_mode:
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789/:`'"
+  prefix: "``"
+  suffix: ""
+  tag: extended_mode
+  tips: ""
+fancy_lower:
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  prefix: "`//"
+  tag: fancy_lower
+  tips: "《變體aa》▸"
+fancy_number:
+  alphabet: "0123456789.'`"
+  prefix: "`/'"
+  tag: fancy_number
+  tips: "《變體數字》▸"
+fancy_title:
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  prefix: "`/"
+  tag: fancy_title
+  tips: "《變體Aa》▸"
+fancy_upper:
+  alphabet: "abcdefghijklmnopqrstuvwxyz.`"
+  prefix: "`///"
+  tag: fancy_upper
+  tips: "《變體AA》▸"
+fixed:
+  comment_format:
+    - "xform/^~.*(.)$/▸⟨$1⟩"
+  db_class: tabledb
+  dictionary: liur.extended
+  disable_user_dict_for_patterns:
+    - "^[',.].*$"
+  enable_charset_filter: false
+  enable_encoder: true
+  enable_sentence: false
+  enable_user_dict: true
+  encode_commit_history: false
+  initial_quality: 100
+  max_phrase_length: 10
+help_mode:
+  prefix: ",,h"
+  tag: help_mode
+  tips: "《按鍵說明》▸"
+key_binder:
+  bindings:
+    - {accept: "Control+slash", select: liur, when: always}
+    - {accept: period, send: period, when: has_menu}
+    - {accept: "Control+period", toggle: simplification, when: always}
+    - {accept: "Control+apostrophe", toggle: liu_w2c, when: always}
+    - {accept: "Control+comma", toggle: extended_charset, when: always}
+    - {accept: "Shift+space", toggle: full_shape, when: always}
+    - {accept: KP_1, send: 1, when: has_menu}
+    - {accept: KP_2, send: 2, when: has_menu}
+    - {accept: KP_3, send: 3, when: has_menu}
+    - {accept: KP_4, send: 4, when: has_menu}
+    - {accept: KP_5, send: 5, when: has_menu}
+    - {accept: KP_6, send: 6, when: has_menu}
+    - {accept: KP_7, send: 7, when: has_menu}
+    - {accept: KP_8, send: 8, when: has_menu}
+    - {accept: KP_9, send: 9, when: has_menu}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+    - {accept: Tab, send: Page_Down, when: has_menu}
+    - {accept: "Shift+Tab", send: Page_Up, when: has_menu}
+    - {accept: "Shift+Up", send: Page_Up, when: has_menu}
+    - {accept: "Shift+Down", send: Page_Down, when: has_menu}
+    - {accept: "Control+slash", select: easy_en, when: always}
+    - {accept: space, send: Escape, when: composing}
+    - {accept: space, send: space, when: has_menu}
+    - {accept: space, option: {liu_phonetic: 0}, send: space, when: has_menu}
+  import_preset: default
+liu_w2c:
+  opencc_config: liu_w2c.json
+  option_name: liu_w2c
+  show_in_comment: true
+  tags:
+    - abc
+    - mkst
+    - pinyin
+    - symbols
+    - lua
+    - fancy_title
+    - fancy_lower
+    - fancy_upper
+    - fancy_number
+    - extended_mode
+  tips: all
+liurqry:
+  closing_tips: "◂《讀音查詢》"
+  comment_format:
+    - "xform/^~.*(.)$/▸⟨$1⟩"
+  db_class: tabledb
+  dictionary: liur.extended
+  disable_user_dict_for_patterns:
+    - "^[',.].*$"
+  enable_charset_filter: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  encode_commit_history: false
+  initial_quality: 300
+  max_phrase_length: 10
+  preedit_format:
+    - "xform/^/《讀音查詢》/"
+  prefix: ";;"
+  suffix: "'"
+  tag: liurqry
+  tips: "《讀音查詢》▸"
+menu:
+  alternative_select_keys: 123456789
+  page_size: 9
+mkst:
+  closing_tips: "◀《造詞》"
+  comment_format:
+    - "xform/^~.*(.)$/▸⟨$1⟩"
+  db_class: tabledb
+  dictionary: liur.extended
+  disable_user_dict_for_patterns:
+    - "^[',.].*$"
+  enable_charset_filter: false
+  enable_encoder: false
+  enable_sentence: true
+  enable_user_dict: false
+  encode_commit_history: false
+  initial_quality: 10
+  max_phrase_length: 10
+  preedit_format:
+    - "xform/~/`/"
+    - "xform/^/《造詞》/"
+  prefix: ";"
+  tag: mkst
+  tips: "《造詞》▸"
+number_variant:
+  alphabet: "0123456789`"
+  prefix: "`'"
+  tag: number_variant
+  tips: "《變體數字》▸"
+phonetic_reverse_lookup:
+  dictionary: Mount_bopomo.extended
+  overwrite_comment: true
+  tags:
+    - liurqry
+pinyin:
+  closing_tips: "◂《拼音輸入》"
+  dictionary: terra_pinyin_onion
+  enable_completion: true
+  enable_sentence: false
+  enable_user_dict: true
+  initial_quality: 0.2
+  preedit_format:
+    - "xform/([nl])v/$1ü/"
+    - "xform/([nl])ue/$1üe/"
+    - "xform/([jqxy])v/$1u/"
+    - "xform/~/⋮/"
+    - "xform/^/《拼音輸入》/"
+  prefix: ";'"
+  prism: terra_pinyin_onion
+  suffix: "'"
+  tag: pinyin
+  tips: "《拼音輸入》▸"
+predictor:
+  db: predict.db
+  max_candidates: 23
+recognizer:
+  import_preset: default
+  patterns:
+    code_decode: "^,,x[a-z\\-;,']*$"
+    email: "^[a-z][-_.0-9a-z]*@.*$"
+    extended_mode: "^``[a-zA-Z/0-9:`']*`?$"
+    fancy_lower: "`//[a-z.]*`?$"
+    fancy_number: "`/'[0-9.']*`?$"
+    fancy_title: "`/[a-z.]*`?$"
+    fancy_upper: "`///[a-z.]*`?$"
+    help_mode: "^,,h$"
+    liurqry: "^;;[a-z']*'?$"
+    mkst: "^;(?![';])[a-z,.'~]*$"
+    number_variant: "(?<![=`/])`'[0-9]{0,2}`?$"
+    pinyin: "^;'[a-z0-9;,/<'-]*'?$"
+    symbols: "^`([0-9]{0,2}|[a-z])`?$"
+    uppercase: "[A-Z][-_+.'0-9A-Za-z]*$"
+    url: "^(www[.]|https?:|ftp:|mailto:).*$"
+schema:
+  author:
+    - "制作人"
+  dependencies:
+    - terra_pinyin_onion
+    - Mount_bopomo
+  description: |
+    蝦米-拼音-注音輸入法
+
+  name: "蝦米輸入法"
+  schema_id: liur
+  version: 20181227
+simplifier:
+  option_name: simplification
+  tags:
+    - abc
+    - mkst
+    - pinyin
+    - symbols
+    - lua
+    - fancy_title
+    - fancy_lower
+    - fancy_upper
+    - fancy_number
+    - extended_mode
+  tips: all
+speller:
+  algebra:
+    - "derive/^~?([a-z])([a-z])([a-z])$/$1$2?/"
+    - "derive/^~?([a-z])([a-z])([a-z])$/$1?$3/"
+    - "derive/^~?([a-z])([a-z])([a-z])$/?$2$3/"
+    - "derive/^~?([a-z])([a-z])([a-z])$/$1??/"
+    - "derive/^~?([a-z])([a-z])([a-z])$/??$3/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2$3?/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2?$4/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1?$3$4/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2$3$4/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1$2??/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1?$3?/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/$1??$4/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2$3?/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/?$2?$4/"
+    - "derive/^~?([a-z])([a-z])([a-z])([a-z])$/??$3$4/"
+    - "xform/^~(.*)$/$1"
+  alphabet: "abcdefghijklmnopqrstuvwxyz[];',.?~"
+  delimiter: "~"
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["中文", "英文"]
+  - name: is_easy_en
+    reset: 0
+  - name: full_shape
+    states: ["半形", "全形"]
+  - name: simplification
+    states: ["繁體", "简体"]
+  - name: liu_w2c
+    reset: 0
+    states: ["正常", "查碼"]
+  - name: quick_mode
+    reset: 0
+    states: ["正常", "快打提示"]
+  - name: force_quick_mode
+    reset: 0
+    states: ["正常", "強制快打"]
+  - name: extended_charset
+    reset: 0
+    states: ["常用", "擴充字集"]
+  - name: zh_tw
+    reset: 1
+  - name: prediction
+    reset: 1
+    states: ["關閉預測", "開啟預測"]
+symbols:
+  alphabet: "abcdefghijklmnopqrstuvwxyz`"
+  closing_tips: ""
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  initial_quality: 1
+  prefix: "`"
+  tag: symbols
+  tips: "《字母變體》▸"
+translator:
+  comment_format:
+    - "xform/^~.*(.)$/▸⟨$1⟩"
+  db_class: tabledb
+  dictionary: liur.extended
+  disable_user_dict_for_patterns:
+    - "^[',.].*$"
+  enable_charset_filter: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  encode_commit_history: false
+  initial_quality: 1000
+  max_phrase_length: 10
+zh_tw:
+  opencc_config: t2tw.json
+  option_name: zh_tw
+  tags:
+    - pinyin

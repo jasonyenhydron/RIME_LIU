@@ -1,0 +1,22 @@
+# 小狼毫 / Rime 執行期資料庫
+*.userdb/
+*.ldb
+*.log
+LOCK
+LOG
+LOG.old
+CURRENT
+MANIFEST-*
+
+# Rime build 二進位快取，保留 YAML 原始設定
+build/*.bin
+build/*.table.bin
+build/*.reverse.bin
+build/*.prism.bin
+
+# 其他暫存或不需要上版控的檔案
+.DS_Store
+predict_data.txt
+librime-predict/
+_variants/
+publish_all.sh
