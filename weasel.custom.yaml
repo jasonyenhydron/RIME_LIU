@@ -6,3 +6,5 @@ customization:
   rime_version: 1.13.1
 patch:
   "style/color_scheme": dark_temple
+  "style/candidate_abbreviate_length": 5
+  "style/hover_type": hilite
