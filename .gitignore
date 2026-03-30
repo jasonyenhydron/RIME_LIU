@@ -20,3 +20,6 @@ predict_data.txt
 librime-predict/
 _variants/
 publish_all.sh
+user.yaml
+likeime_related.user.tsv
+data/
