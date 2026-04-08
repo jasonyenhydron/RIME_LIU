@@ -469,7 +469,7 @@ predictor:
 liu_related_filter:
   data: likeime_related.tsv
   learned_data: likeime_related.user.tsv
-  max_promoted: 8
-  learning_delta: 60
-  explicit_learning_bonus: 180
+  max_promoted: 10
+  learning_delta: 120
+  explicit_learning_bonus: 360
   learned_debug_marker: 〔學習〕
