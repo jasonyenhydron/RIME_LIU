@@ -128,5 +128,8 @@ liu_english_filter = require("liu_english_filter")
 -- 英文大小寫轉換（word] → Word，word]] → WORD）
 liu_english_case_filter = require("liu_english_case_filter")
 
+-- 長候選在 comment 顯示完整字詞
+liu_full_text_comment_filter = require("liu_full_text_comment_filter")
+
 -- 上屏後小步垃圾回收
 liu_gc_processor = require("liu_gc_processor")
