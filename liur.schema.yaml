@@ -139,7 +139,6 @@ engine:
     - lua_filter@liu_fancy_filter	#變體英數模式 preedit 處理
     - lua_filter@liu_english_case_filter	#英文大小寫轉換（word] → Word，word]] → WORD）
     - lua_filter@liu_english_filter	#移除英文候選的補全提示（必須在 uniquifier 之前）
-    - lua_filter@liu_full_text_comment_filter	#長候選在 comment 顯示完整字詞
     - uniquifier	#過濾重複的候選字（必須在所有 filter 之後）
     # - single_char_filter  #單字優先
 
