@@ -7,4 +7,5 @@ customization:
 patch:
   "style/color_scheme": dark_temple
   "style/candidate_abbreviate_length": 5
-  "style/hover_type": hilite
+  "style/hover_type": none
+  "style/paging_on_scroll": true
