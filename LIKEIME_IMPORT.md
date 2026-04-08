@@ -47,3 +47,20 @@ D:\CODE\LIKEIME\DATA\emoji.db
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\scripts\deploy_likeime_data.ps1
 ```
+
+## 備份資料庫補匯入
+
+若要從其他備份 `lime.db` 只補「主字典沒有的多字詞」到加字加詞檔，可執行：
+
+```powershell
+python .\scripts\import_backup_db_missing_words.py --db "D:\jason.yen\Downloads\backup (7)\databases\lime.db"
+```
+
+這支腳本會：
+
+- 同時讀 `custom` 與 `custom_user`
+- 排除主字典已存在的詞
+- 排除單字
+- 保留超長句
+- 自動整理折行、Tab、重複空白
+- 把數字碼轉成 `0123456789 -> versfwlcbk`
