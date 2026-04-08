@@ -4,12 +4,12 @@
 #
 schema:
   schema_id: liur
-  name: 蝦米輸入法
+  name: 嘸蝦米
   version: "20181227"
   author:
     - 制作人
   description: |
-    蝦米-拼音-注音輸入法
+    嘸蝦米輸入法
   dependencies:
     - terra_pinyin_onion  # 漢語拼音（地球拼音-洋蔥版）
     - Mount_bopomo       # 讀音查詢需要（保留）
