@@ -1,6 +1,6 @@
 -- liu_custom_word_translator.lua
 -- 自定詞翻譯器：讀取 openxiami_CustomWord.dict.yaml 並產生候選。
--- 另外提供 add_custom_entry()，讓 ,,add 指令可直接寫入加詞檔且立即生效。
+-- 另外提供 add_custom_entry()，讓 ,, 加詞流程可直接寫入加詞檔且立即生效。
 
 local M = {}
 

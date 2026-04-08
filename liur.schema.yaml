@@ -54,7 +54,7 @@ engine:
       - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
       - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
       - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
-      - lua_processor@liu_add_custom_phrase_processor  # ,,add 字根 詞句 後按 Enter 直接寫入加詞檔
+      - lua_processor@liu_add_custom_phrase_processor  # ,,字根 Enter → 輸入詞句 → Enter，直接寫入加詞檔
       - lua_processor@liu_related_processor            # 記錄明確選字順位，供 related 學習加權
       - recognizer
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
@@ -101,7 +101,7 @@ engine:
 #    - script_translator
       - predict_translator
       - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
-      - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,add）
+      - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,）
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（保留）
     - lua_translator@liu_datetime  # 擴充模式日期時間（保留功能，但選單中不顯示）
@@ -368,7 +368,7 @@ recognizer:
 # 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
 # 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
     code_decode: "^,,x[a-z\\-;,']*$"
-    add_phrase_mode: "^,,add.*$"
+    add_phrase_mode: "^,,[a-z]{0,5}$"
 # 功能說明引導鍵（,,h）
     help_mode: "^,,h$"
 
@@ -460,9 +460,9 @@ code_decode:
 
 add_phrase_mode:
   tag: add_phrase_mode
-  prefix: ",,add"
+  prefix: ",,"
   suffix: ""
-  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ,.;:!?~`'\"()[]{}<>+-_=\\/|@#$%^&*"
+  alphabet: "abcdefghijklmnopqrstuvwxyz"
   tips: "《加詞》▸"
 
 # 功能說明（,,h）- 顯示所有功能的快捷鍵說明
