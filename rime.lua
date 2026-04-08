@@ -111,8 +111,11 @@ liu_vrsf_hint = require("liu_vrsf_hint")
 liu_code_decoder_translator = require("liu_code_decoder")
 
 -- 自定詞翻譯器和過濾器
-liu_custom_word_translator = require("liu_custom_word_translator")
+local liu_custom_word_module = require("liu_custom_word_translator")
+liu_custom_word_translator = liu_custom_word_module.translator
 liu_custom_word_filter = require("liu_custom_word_filter")
+liu_add_custom_phrase_translator = require("liu_add_custom_phrase")
+liu_add_custom_phrase_processor = require("liu_add_custom_phrase_processor")
 
 -- 功能說明（,,h 模式）
 local liu_help_module = require("liu_help")

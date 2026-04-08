@@ -23,6 +23,7 @@ M.help_items = {
     -- "字母變化 ▸ `` + a~z",
     ",,sp ▸ 快打提示",
     ",,sf ▸ 強制快打",
+    ",,add abc 你好嗎？ ▸ 加入自訂碼（按 Enter 寫入）",
     -- "萬用查字 ▸ ,,wc",
     "擴充字集 ▸ 空白鍵上滑",
     "完整說明 ▸ ryanwuson.github.io/rime-liur-ios",
