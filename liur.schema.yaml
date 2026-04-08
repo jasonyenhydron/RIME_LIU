@@ -85,6 +85,7 @@ engine:
     - affix_segmentor@number_variant  # 數字變體 `'（必須在 symbols 之前）
     - affix_segmentor@symbols  # 字母變體（`a，保留）
     - affix_segmentor@code_decode  # 編碼解碼模式 ,,x
+    - affix_segmentor@add_phrase_mode  # 加詞模式 ,,
     - affix_segmentor@help_mode  # 功能說明 ,,h
     - abc_segmentor
     - affix_segmentor@mkst         # 造詞功能（保留）
