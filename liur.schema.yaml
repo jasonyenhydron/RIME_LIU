@@ -49,12 +49,13 @@ switches:
 
 engine:
   processors:
-    - ascii_composer
-    - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
-    - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
-    - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
-    - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
-    - recognizer
+      - ascii_composer
+      - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
+      - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
+      - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
+      - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
+      - lua_processor@liu_related_processor            # 記錄明確選字順位，供 related 學習加權
+      - recognizer
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
     # - lua_processor@liu_key_blocker                # 無效輸入遮蔽（防誤觸）- 純中文輸入模式不需要
     - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
@@ -118,10 +119,11 @@ engine:
     # - table_translator@symbols         # 字母變體改用 date_translator
 
   filters:
-    - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
-    - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
-    # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
-    # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
+      - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
+      - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
+      - lua_filter@liu_related_filter	#依上一個上屏詞調整 related 聯想排序，並寫入即時學習
+      # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
+      # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
     - reverse_lookup_filter@phonetic_reverse_lookup	#讀音查詢（保留）
     - simplifier
@@ -195,14 +197,14 @@ speller:
 #查碼模式（Ctrl+'）下會自動禁用萬用字元以確保效能
 
 translator:
-  dictionary: liur.extended
-  db_class: tabledb
-  enable_user_dict: false
-  enable_sentence: false
-  enable_encoder: false
-  enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
-  encode_commit_history: false
-  max_phrase_length: 10
+    dictionary: liur.extended
+    db_class: tabledb
+    enable_user_dict: true
+    enable_sentence: false
+    enable_encoder: true
+    enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
+    encode_commit_history: true
+    max_phrase_length: 10
   comment_format:
     - xform/^~.*(.)$/▸⟨$1⟩   #將提示碼改為較美觀的型式
   disable_user_dict_for_patterns:
@@ -463,3 +465,11 @@ help_mode:
 predictor:
   db: predict.db
   max_candidates: 23  # 預測候選數量
+
+liu_related_filter:
+  data: likeime_related.tsv
+  learned_data: likeime_related.user.tsv
+  max_promoted: 8
+  learning_delta: 60
+  explicit_learning_bonus: 180
+  learned_debug_marker: 〔學習〕
