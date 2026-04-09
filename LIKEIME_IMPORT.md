@@ -7,6 +7,7 @@
 - `custom_user` 只匯入大於 1 個字的詞，單字不寫入加詞檔
 - `custom_user` 的數字字根會在匯入時轉成 `0123456789 -> versfwlcbk`
 - `custom_user` 若轉換後只剩 1 碼，會直接略過，不匯入 `openxiami_CustomWord.dict.yaml`
+- `custom_user` 若轉換後超過 5 碼，也會直接略過，不匯入 `openxiami_CustomWord.dict.yaml`
 - `custom_user` 若詞/碼已存在於 `openxiami_TCJP.dict.yaml` 或 `openxiami_TradExt.dict.yaml`，也會直接略過
 - `custom_user` 若是單字，且字碼在主字典已存在，也會略過，避免單字異體或簡繁條目重複匯入
 - `related(pword, cword)` 會匯出到 `likeime_related.tsv`

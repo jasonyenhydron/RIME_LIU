@@ -150,6 +150,9 @@ def export_custom_user(conn: sqlite3.Connection, output_path: Path) -> int:
             normalized_code = normalize_custom_user_code(str(code))
             if not normalized_word or not normalized_code or len(normalized_code) == 1:
                 continue
+            # 加詞檔只保留 5 碼內條目，避免過長自訂碼拖慢候選與污染主流程。
+            if len(normalized_code) > 5:
+                continue
             if len(normalized_word) <= 1:
                 continue
             if (normalized_word, normalized_code) in existing_entries:
