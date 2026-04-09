@@ -114,7 +114,7 @@ engine:
     # - script_translator@all_bpm        # 注音輸入（手機用不到）
     - table_translator@mkst            # 造詞功能（保留）
     - table_translator@fixed
-    - table_translator@phrases         # 嘸蝦米實用版常用短語
+    # - table_translator@phrases         # 暫停常用短語詞庫，優先確保候選速度
     - table_translator@liurqry         # 讀音查詢（保留）
     - lua_translator@liu_custom_word_translator  # 自定詞翻譯器（在 table_translator 之前）
     - table_translator

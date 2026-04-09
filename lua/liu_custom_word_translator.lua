@@ -7,7 +7,7 @@ local M = {}
 local trie = nil
 local exact_matches = nil
 
-local MIN_COMPLETION_LEN = 3
+local MIN_COMPLETION_LEN = 99
 local MAX_COMPLETION_RESULTS = 10
 local DIGIT_TRANSLATION = {
     ["0"] = "v",

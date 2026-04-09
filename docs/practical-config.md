@@ -35,6 +35,8 @@
 - `related` 聯想排序
 - `related` 即時學習 processor
 - 內建 `predictor` / `predict_translator`
+- `table_translator@phrases`
+- 自定詞補全（僅保留自定詞精確命中）
 
 原因：
 - 這些模組都會參與每次按鍵後的候選重排
