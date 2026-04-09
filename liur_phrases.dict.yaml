@@ -1,0 +1,33 @@
+# Rime schema 中州輸入法的字碼檔
+# encoding: utf-8
+#
+# 嘸蝦米實用版常用短語
+#
+---
+name: liur_phrases
+version: "1"
+sort: original
+...
+# 問候與常用回覆
+你好	niv
+您好	nif
+謝謝	xiex
+不好意思	bhys
+沒問題	mwt
+可以	ke
+收到	sd
+了解	lj
+辛苦了	xkl
+
+# 工作與回覆
+請稍等	qsd
+我先確認一下	wqr
+稍後回覆	shhf
+已收到	ysd
+處理中	clz
+完成了	wcl
+
+# 常用句型
+你好嗎？	nhm
+謝謝！	xxf
+不好意思，打擾了。	bhyd

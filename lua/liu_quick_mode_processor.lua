@@ -2,7 +2,10 @@
 -- 處理快捷鍵切換模式及強制快打邏輯
 -- ,,sp = 快打提示模式
 -- ,,sf = 強制快打模式
--- ,,wc = 萬用查字模式 (wildcard)
+-- ,,en = 英文模式
+-- ,,zh = 中文模式
+-- ,,wc = 查碼模式
+-- ,,ec = 擴充字集
 
 -- Opencc 實例（延遲載入）
 local opencc_liu_w2c = nil
@@ -169,13 +172,30 @@ local function processor(key, env)
         context:clear()
         return 1
     end
-    
-    -- ,,wc + 空格 = 切換萬用查字模式 (wildcard)
-    -- if input == ",,wc" and key_repr == "space" then
-    --     context:set_option("wildcard_mode", not context:get_option("wildcard_mode"))
-    --     context:clear()
-    --     return 1
-    -- end
+
+    if input == ",,en" and key_repr == "space" then
+        context:set_option("ascii_mode", true)
+        context:clear()
+        return 1
+    end
+
+    if input == ",,zh" and key_repr == "space" then
+        context:set_option("ascii_mode", false)
+        context:clear()
+        return 1
+    end
+
+    if input == ",,wc" and key_repr == "space" then
+        context:set_option("liu_w2c", not context:get_option("liu_w2c"))
+        context:clear()
+        return 1
+    end
+
+    if input == ",,ec" and key_repr == "space" then
+        context:set_option("extended_charset", not context:get_option("extended_charset"))
+        context:clear()
+        return 1
+    end
     
     -- 強制快打模式下攔截空格鍵
     if context:get_option("force_quick_mode") and key_repr == "space" then

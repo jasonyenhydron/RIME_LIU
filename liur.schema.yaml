@@ -95,15 +95,15 @@ engine:
     # - affix_segmentor@phonetic     # 注音輸入（手機用不到）
     # - affix_segmentor@reverse2_lookup  # 未定義，暫時註解
     # - affix_segmentor@all_bpm      # 注音輸入（手機用不到）
-#    - punct_segmentor
+    - punct_segmentor
     - fallback_segmentor
   translators:
 #    - echo_translator
-#    - punct_translator
+    - punct_translator
 #    - script_translator
-      - predict_translator
-      - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
-      - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,）
+    - predict_translator
+    - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
+    - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,）
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（保留）
     - lua_translator@liu_datetime  # 擴充模式日期時間（保留功能，但選單中不顯示）
@@ -114,6 +114,7 @@ engine:
     # - script_translator@all_bpm        # 注音輸入（手機用不到）
     - table_translator@mkst            # 造詞功能（保留）
     - table_translator@fixed
+    - table_translator@phrases         # 嘸蝦米實用版常用短語
     - table_translator@liurqry         # 讀音查詢（保留）
     - lua_translator@liu_custom_word_translator  # 自定詞翻譯器（在 table_translator 之前）
     - table_translator
@@ -123,11 +124,12 @@ engine:
     # - table_translator@symbols         # 字母變體改用 date_translator
 
   filters:
-      - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
-      - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
-      - lua_filter@liu_related_filter	#依上一個上屏詞調整 related 聯想排序，並寫入即時學習
-      # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
-      # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
+    - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
+    - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
+    - lua_filter@liu_related_filter	#依上一個上屏詞調整 related 聯想排序，並寫入即時學習
+    - lua_filter@liu_code_hint_filter	#嘸蝦米實用版：正常候選補精簡字根提示
+    # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
+    # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
     - reverse_lookup_filter@phonetic_reverse_lookup	#讀音查詢（保留）
     - simplifier
@@ -201,14 +203,14 @@ speller:
 #查碼模式（Ctrl+'）下會自動禁用萬用字元以確保效能
 
 translator:
-    dictionary: liur.extended
-    db_class: tabledb
-    enable_user_dict: true
-    enable_sentence: false
-    enable_encoder: true
-    enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
-    encode_commit_history: true
-    max_phrase_length: 10
+  dictionary: liur.extended
+  db_class: tabledb
+  enable_user_dict: true
+  enable_sentence: false
+  enable_encoder: true
+  enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
+  encode_commit_history: true
+  max_phrase_length: 10
   comment_format:
     - xform/^~.*(.)$/▸⟨$1⟩   #將提示碼改為較美觀的型式
   disable_user_dict_for_patterns:
@@ -247,6 +249,15 @@ liurqry:
   tag: liurqry
   preedit_format:
     - xform/^/《讀音查詢》/
+
+phrases:
+  dictionary: liur_phrases
+  db_class: tabledb
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  enable_encoder: false
+  initial_quality: 5
 
 # 英文輸入（獨立翻譯器，只對 abc tag 生效）- 純中文輸入模式已註解
 # easy_en:
@@ -324,7 +335,7 @@ phonetic_reverse_lookup:
 # Rime 會自動從 openxiami_TCJP 字典建立反查索引
 
 punctuator:
-#  import_preset: default
+  import_preset: default
 #  import_preset: alternative
 
 key_binder:

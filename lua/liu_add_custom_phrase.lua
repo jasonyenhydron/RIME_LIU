@@ -6,6 +6,10 @@ local RESERVED_COMMANDS = {
     [",,x"] = true,
     [",,sp"] = true,
     [",,sf"] = true,
+    [",,en"] = true,
+    [",,zh"] = true,
+    [",,wc"] = true,
+    [",,ec"] = true,
 }
 
 local function is_reserved_command(input)
