@@ -55,7 +55,7 @@ engine:
     - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
     - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
     - lua_processor@liu_add_custom_phrase_processor  # ,,字根 Enter → 輸入詞句 → Enter，直接寫入加詞檔
-    - lua_processor@liu_related_processor            # 記錄明確選字順位，供 related 學習加權
+    # - lua_processor@liu_related_processor            # 暫停 related 即時學習，優先確保候選速度
     - lua_processor@liu_keypad_selector              # 九宮格數字鍵 1~9 直接選字
     - recognizer
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
@@ -65,7 +65,7 @@ engine:
     # - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'（手機用不到）
     - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
     - lua_processor@liu_gc_processor                 # 上屏後小步垃圾回收
-    - predictor
+    # - predictor
     - key_binder
     
     - speller
@@ -101,7 +101,7 @@ engine:
 #    - echo_translator
     - punct_translator
 #    - script_translator
-    - predict_translator
+    # - predict_translator
     - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
     - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,）
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
@@ -126,7 +126,7 @@ engine:
   filters:
     - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
     - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
-    - lua_filter@liu_related_filter	#依上一個上屏詞調整 related 聯想排序，並寫入即時學習
+    # - lua_filter@liu_related_filter	#暫停 related 聯想排序，優先確保候選速度
     # - lua_filter@liu_code_hint_filter	#嘸蝦米實用版：正常候選補精簡字根提示（目前停用以優先確保速度）
     # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
     # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
