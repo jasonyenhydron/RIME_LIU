@@ -49,14 +49,15 @@ switches:
 
 engine:
   processors:
-      - ascii_composer
-      - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
-      - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
-      - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
-      - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
-      - lua_processor@liu_add_custom_phrase_processor  # ,,字根 Enter → 輸入詞句 → Enter，直接寫入加詞檔
-      - lua_processor@liu_related_processor            # 記錄明確選字順位，供 related 學習加權
-      - recognizer
+    - ascii_composer
+    - lua_processor@liu_tilde_processor              # 波浪號直出（必須在 recognizer 之前）
+    - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
+    - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
+    - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
+    - lua_processor@liu_add_custom_phrase_processor  # ,,字根 Enter → 輸入詞句 → Enter，直接寫入加詞檔
+    - lua_processor@liu_related_processor            # 記錄明確選字順位，供 related 學習加權
+    - lua_processor@liu_keypad_selector              # 九宮格數字鍵 1~9 直接選字
+    - recognizer
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
     # - lua_processor@liu_key_blocker                # 無效輸入遮蔽（防誤觸）- 純中文輸入模式不需要
     - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式

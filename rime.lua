@@ -116,6 +116,7 @@ liu_custom_word_translator = liu_custom_word_module.translator
 liu_custom_word_filter = require("liu_custom_word_filter")
 liu_add_custom_phrase_translator = require("liu_add_custom_phrase")
 liu_add_custom_phrase_processor = require("liu_add_custom_phrase_processor")
+liu_keypad_selector = require("liu_keypad_selector")
 
 -- 功能說明（,,h 模式）
 local liu_help_module = require("liu_help")
