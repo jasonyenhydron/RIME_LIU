@@ -18,6 +18,7 @@
 - 檔案：[lua/liu_code_hint_filter.lua](/D:/APP/rime-liur-lua-master/lua/liu_code_hint_filter.lua)
 - 正常輸入時，前段候選會補主碼提示
 - 特殊模式如 `;;`、`;`、`,,`、`` ` `` 會自動略過
+- 目前預設停用，原因是這層會增加每次候選產生的計算量，先以輸入流暢度優先
 
 3. 標點強化
 - 啟用 `punct_segmentor`、`punct_translator`、`punctuator`

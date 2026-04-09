@@ -127,7 +127,7 @@ engine:
     - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
     - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
     - lua_filter@liu_related_filter	#依上一個上屏詞調整 related 聯想排序，並寫入即時學習
-    - lua_filter@liu_code_hint_filter	#嘸蝦米實用版：正常候選補精簡字根提示
+    # - lua_filter@liu_code_hint_filter	#嘸蝦米實用版：正常候選補精簡字根提示（目前停用以優先確保速度）
     # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
     # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
@@ -487,7 +487,7 @@ help_mode:
 # 預測（聯想字）設定
 predictor:
   db: predict.db
-  max_candidates: 23  # 預測候選數量
+  max_candidates: 9  # 預測候選數量，降低以改善候選延遲
 
 liu_related_filter:
   data: likeime_related.tsv
