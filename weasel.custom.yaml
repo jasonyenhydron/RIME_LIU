@@ -14,6 +14,7 @@ patch:
   "app_options/code.exe/inline_preedit": false
   "app_options/cursor.exe/inline_preedit": false
   "app_options/line.exe/inline_preedit": false
+  "app_options/explorer.exe/inline_preedit": false
   "style/color_scheme": dark_temple
   "style/candidate_abbreviate_length": 5
   "style/hover_type": none
