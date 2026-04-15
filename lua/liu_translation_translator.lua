@@ -1,9 +1,6 @@
 -- liu_translation_translator.lua
--- 英翻中查詢模式（,,tr）：使用本地 TSV 詞典提供輕量英文翻譯候選。
--- 設計目標：
--- 1. 不干擾平常英文或嘸蝦米主輸入流程
--- 2. 先做本地常用詞典查詢，不依賴網路服務
--- 3. 之後只要擴充 english_zh.tsv 就能增加翻譯詞彙
+-- Local English to Chinese lookup for ",,tr".
+-- Keep labels ASCII to avoid editor/runtime encoding issues.
 
 local M = {}
 
@@ -52,7 +49,7 @@ local function load_dictionary()
         if fh then
             for line in fh:lines() do
                 if line ~= "" and not line:match("^#") then
-                    local source, target = line:match("^([^\t]+)\t(.+)$")
+                    local source, target = line:match("^([^	]+)	(.+)$")
                     if source and target then
                         local key = normalize_key(source)
                         if key ~= "" then
@@ -84,8 +81,8 @@ function M.translator(input, seg, env)
 
     local query = normalize_key(input)
     if query == "" then
-        local hint = Candidate("translation_hint", seg.start, seg._end, "請輸入英文", "")
-        hint.preedit = "《英翻中》"
+        local hint = Candidate("translation_hint", seg.start, seg._end, "type english", "")
+        hint.preedit = "[TR]"
         yield(hint)
         return
     end
@@ -95,8 +92,8 @@ function M.translator(input, seg, env)
 
     if exact_hits then
         for _, translated in ipairs(exact_hits) do
-            local cand = Candidate("translation", seg.start, seg._end, translated, "〔英翻中〕")
-            cand.preedit = "《英翻中》" .. query
+            local cand = Candidate("translation", seg.start, seg._end, translated, "[TR]")
+            cand.preedit = "[TR] " .. query
             yield(cand)
             yielded = yielded + 1
         end
@@ -126,15 +123,15 @@ function M.translator(input, seg, env)
     for index = 1, math.min(#prefix_hits, 8) do
         local item = prefix_hits[index]
         for _, translated in ipairs(item.translations) do
-            local cand = Candidate("translation", seg.start, seg._end, translated, "〔" .. item.source .. "〕")
-            cand.preedit = "《英翻中》" .. query
+            local cand = Candidate("translation", seg.start, seg._end, translated, "[" .. item.source .. "]")
+            cand.preedit = "[TR] " .. query
             yield(cand)
         end
     end
 
     if #prefix_hits == 0 then
-        local hint = Candidate("translation_hint", seg.start, seg._end, "查無翻譯", "")
-        hint.preedit = "《英翻中》" .. query
+        local hint = Candidate("translation_hint", seg.start, seg._end, "no translation", "")
+        hint.preedit = "[TR] " .. query
         yield(hint)
     end
 end

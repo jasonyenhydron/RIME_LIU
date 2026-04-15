@@ -4,12 +4,12 @@
 #
 schema:
   schema_id: liur
-  name: 嘸蝦米
+  name: 蝦米輸入法
   version: "20181227"
   author:
     - 制作人
   description: |
-    嘸蝦米輸入法
+    蝦米-拼音-注音輸入法
   dependencies:
     - terra_pinyin_onion  # 漢語拼音（地球拼音-洋蔥版）
     - Mount_bopomo       # 讀音查詢需要（保留）
@@ -54,18 +54,16 @@ engine:
     - lua_processor@liu_fancy_processor              # 變體英數模式按鍵處理（必須在 recognizer 之前攔截 ` 鍵）
     - lua_processor@liu_extended_backspace           # `` 擴充模式（字母變化形需要）
     - lua_processor@liu_symbols_number_processor     # 數字變體及字母變化形（保留）
-    - lua_processor@liu_add_custom_phrase_processor  # ,,字根 Enter → 輸入詞句 → Enter，直接寫入加詞檔
-    # - lua_processor@liu_related_processor            # 暫停 related 即時學習，優先確保候選速度
-    - lua_processor@liu_keypad_selector              # 九宮格數字鍵 1~9 直接選字
     - recognizer
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
     # - lua_processor@liu_key_blocker                # 無效輸入遮蔽（防誤觸）- 純中文輸入模式不需要
     - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
     # - lua_processor@liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'（手機用不到）
     # - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'（手機用不到）
+    - lua_processor@liu_related_processor            # 輕量智慧排序學習（記錄明確選字）
     - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
     - lua_processor@liu_gc_processor                 # 上屏後小步垃圾回收
-    # - predictor
+    - predictor
     - key_binder
     
     - speller
@@ -86,8 +84,8 @@ engine:
     - affix_segmentor@number_variant  # 數字變體 `'（必須在 symbols 之前）
     - affix_segmentor@symbols  # 字母變體（`a，保留）
     - affix_segmentor@code_decode  # 編碼解碼模式 ,,x
-    - affix_segmentor@add_phrase_mode  # 加詞模式 ,,
     - affix_segmentor@help_mode  # 功能說明 ,,h
+    - affix_segmentor@translation_mode  # Local English to Chinese lookup ,,tr
     - abc_segmentor
     - affix_segmentor@mkst         # 造詞功能（保留）
     - affix_segmentor@liurqry      # 讀音查詢（保留）
@@ -95,15 +93,15 @@ engine:
     # - affix_segmentor@phonetic     # 注音輸入（手機用不到）
     # - affix_segmentor@reverse2_lookup  # 未定義，暫時註解
     # - affix_segmentor@all_bpm      # 注音輸入（手機用不到）
-    - punct_segmentor
+#    - punct_segmentor
     - fallback_segmentor
   translators:
 #    - echo_translator
-    - punct_translator
+#    - punct_translator
 #    - script_translator
-    # - predict_translator
+    - predict_translator
     - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
-    - lua_translator@liu_add_custom_phrase_translator  # 自訂碼加詞（,,）
+    - lua_translator@liu_translation_translator  # Local English to Chinese lookup
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（保留）
     - lua_translator@liu_datetime  # 擴充模式日期時間（保留功能，但選單中不顯示）
@@ -114,7 +112,6 @@ engine:
     # - script_translator@all_bpm        # 注音輸入（手機用不到）
     - table_translator@mkst            # 造詞功能（保留）
     - table_translator@fixed
-    # - table_translator@phrases         # 暫停常用短語詞庫，優先確保候選速度
     - table_translator@liurqry         # 讀音查詢（保留）
     - lua_translator@liu_custom_word_translator  # 自定詞翻譯器（在 table_translator 之前）
     - table_translator
@@ -125,9 +122,8 @@ engine:
 
   filters:
     - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
+    - lua_filter@liu_related_filter	#輕量智慧排序：70% unigram + 30% bigram
     - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
-    # - lua_filter@liu_related_filter	#暫停 related 聯想排序，優先確保候選速度
-    # - lua_filter@liu_code_hint_filter	#嘸蝦米實用版：正常候選補精簡字根提示（目前停用以優先確保速度）
     # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
     # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
     - simplifier@liu_w2c	#無蝦米字碼查詢 - 必須在 simplifier 之前
@@ -205,11 +201,11 @@ speller:
 translator:
   dictionary: liur.extended
   db_class: tabledb
-  enable_user_dict: true
+  enable_user_dict: false
   enable_sentence: false
-  enable_encoder: true
+  enable_encoder: false
   enable_charset_filter: false  # 改用自定義的 lua_filter@liu_charset_filter
-  encode_commit_history: true
+  encode_commit_history: false
   max_phrase_length: 10
   comment_format:
     - xform/^~.*(.)$/▸⟨$1⟩   #將提示碼改為較美觀的型式
@@ -249,15 +245,6 @@ liurqry:
   tag: liurqry
   preedit_format:
     - xform/^/《讀音查詢》/
-
-phrases:
-  dictionary: liur_phrases
-  db_class: tabledb
-  enable_completion: false
-  enable_sentence: false
-  enable_user_dict: false
-  enable_encoder: false
-  initial_quality: 5
 
 # 英文輸入（獨立翻譯器，只對 abc tag 生效）- 純中文輸入模式已註解
 # easy_en:
@@ -335,7 +322,7 @@ phonetic_reverse_lookup:
 # Rime 會自動從 openxiami_TCJP 字典建立反查索引
 
 punctuator:
-  import_preset: default
+#  import_preset: default
 #  import_preset: alternative
 
 key_binder:
@@ -381,9 +368,9 @@ recognizer:
 # 編碼解碼模式（,,x）- 將嘸蝦米編碼轉換回中文
 # 使用方式：,,x 進入解碼模式，貼上編碼（用-分隔，如 ix-v-yua-uo），按 Enter 上屏
     code_decode: "^,,x[a-z\\-;,']*$"
-    add_phrase_mode: "^,,[a-z]{0,5}$"
 # 功能說明引導鍵（,,h）
     help_mode: "^,,h$"
+    translation_mode: "^,,tr[ A-Za-z\-']*$"
 
 # 符號清單配置（只保留字母變體，移除數字編碼符號清單）
 # 注意：只處理字母變體（`a），數字編碼符號清單（`01~`50）已移除
@@ -471,13 +458,6 @@ code_decode:
   alphabet: "abcdefghijklmnopqrstuvwxyz-;,'"
   tips: "《解碼》▸"
 
-add_phrase_mode:
-  tag: add_phrase_mode
-  prefix: ",,"
-  suffix: ""
-  alphabet: "abcdefghijklmnopqrstuvwxyz"
-  tips: "《加詞》▸"
-
 # 功能說明（,,h）- 顯示所有功能的快捷鍵說明
 help_mode:
   tag: help_mode
@@ -485,14 +465,25 @@ help_mode:
   tips: "《按鍵說明》▸"
 
 # 預測（聯想字）設定
+translation_mode:
+  tag: translation_mode
+  prefix: ",,tr"
+  suffix: ""
+  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -'"
+  tips: "[TR]"
+
 predictor:
   db: predict.db
-  max_candidates: 9  # 預測候選數量，降低以改善候選延遲
+  max_candidates: 23  # 預測候選數量
 
-liu_related_filter:
+# 輕量智慧排序設定
+smart_rank:
   data: likeime_related.tsv
   learned_data: likeime_related.user.tsv
-  max_promoted: 10
-  learning_delta: 120
-  explicit_learning_bonus: 360
-  learned_debug_marker: 〔學習〕
+  max_promoted: 5
+  min_input_length: 2
+  unigram_weight: 70
+  bigram_weight: 30
+  learning_delta: 40
+  explicit_learning_bonus: 120
+  learned_debug_marker: ""
