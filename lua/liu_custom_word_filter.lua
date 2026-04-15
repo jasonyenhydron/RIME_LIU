@@ -1,18 +1,23 @@
 -- liu_custom_word_filter.lua
--- 排序過濾器：蝦米完整 > 自定詞完整 > 蝦米補字 > 自定詞補全 > 假名 > 擴充 > 英文
---
--- 串流處理策略：
--- 1. 蝦米完整匹配：暫存
--- 2. 自定詞完整匹配(custom)：暫存
--- 3. 蝦米補字：先輸出蝦米完整 + 自定詞完整，再輸出補字
--- 4. 自定詞補全(custom_completion)：暫存到最後輸出（在假名之前）
--- 5. 如果沒有蝦米補字，在迴圈結束後輸出蝦米完整 + 自定詞完整
+-- 自訂詞候選排序：
+-- 1. 同為加詞候選時，優先顯示字數較短的詞
+-- 2. 你明確選過的加詞，會持續累積權重並往前排
+-- 3. 學習只作用於 openxiami_CustomWord.dict.yaml 產生的候選，不影響主字典
 
 local common = require("liu_common")
+local learning = require("liu_custom_word_learning")
+
 local is_kana = common.is_kana
 local is_extended_charset = common.is_extended_charset
-
 local MAX_BUFFER = 30
+
+local function utf8_len(text)
+    local len = utf8.len(text or "")
+    if len then
+        return len
+    end
+    return #(text or "")
+end
 
 local function is_ascii_english(text)
     local len = #text
@@ -36,28 +41,58 @@ local function get_cjk_type(text)
     return 0
 end
 
+local function is_completion_candidate(cand)
+    local comment = cand.comment or ""
+    return comment ~= "" and (comment:sub(1, 1) == "~" or comment:find("▸", 1, true))
+end
+
+local function sort_custom_candidates(cands, input_code)
+    table.sort(cands, function(a, b)
+        local a_len = utf8_len(a.text)
+        local b_len = utf8_len(b.text)
+        if a_len ~= b_len then
+            return a_len < b_len
+        end
+
+        local a_weight = learning.get_weight(input_code, a.text)
+        local b_weight = learning.get_weight(input_code, b.text)
+        if a_weight ~= b_weight then
+            return a_weight > b_weight
+        end
+
+        local a_quality = a.quality or 0
+        local b_quality = b.quality or 0
+        if a_quality ~= b_quality then
+            return a_quality > b_quality
+        end
+
+        return a.text < b.text
+    end)
+end
+
 local function filter(input, env)
-    local xiami_exact = {}            -- 蝦米完整匹配
-    local custom_exact = {}           -- 自定詞完整匹配
-    local custom_completion = {}      -- 自定詞補全
+    learning.ensure_loaded()
+
+    local xiami_exact = {}
+    local custom_exact = {}
+    local custom_completion = {}
     local kana_cands = {}
     local ext_cands = {}
     local english_cands = {}
-    local exact_flushed = false       -- 完整匹配是否已輸出
+    local exact_flushed = false
     local show_extended = env.engine.context:get_option("extended_charset")
+    local input_code = string.lower(env.engine.context.input or "")
 
     for cand in input:iter() do
         local ctype = cand.type
 
         if ctype == "custom" then
-            -- 自定詞完整匹配：暫存
             if exact_flushed then
                 yield(cand)
             else
                 custom_exact[#custom_exact + 1] = cand
             end
         elseif ctype == "custom_completion" then
-            -- 自定詞補全：暫存到最後（在假名之前）
             if #custom_completion < MAX_BUFFER then
                 custom_completion[#custom_completion + 1] = cand
             end
@@ -69,23 +104,17 @@ local function filter(input, env)
             local cjk_type = get_cjk_type(cand.text)
 
             if cjk_type == 2 then
-                -- 擴充字集
                 if show_extended and #ext_cands < MAX_BUFFER then
                     ext_cands[#ext_cands + 1] = cand
                 end
             elseif cjk_type == 1 then
-                -- 假名
                 if #kana_cands < MAX_BUFFER then
                     kana_cands[#kana_cands + 1] = cand
                 end
             else
-                -- 一般漢字（蝦米候選）
-                local comment = cand.comment
-                local is_completion = comment and (comment:sub(1, 1) == "~" or comment:find("▸", 1, true))
-
-                if is_completion then
-                    -- 蝦米補字：先輸出蝦米完整 + 自定詞完整，再輸出補字
+                if is_completion_candidate(cand) then
                     if not exact_flushed then
+                        sort_custom_candidates(custom_exact, input_code)
                         exact_flushed = true
                         for i = 1, #xiami_exact do yield(xiami_exact[i]) end
                         xiami_exact = {}
@@ -94,7 +123,6 @@ local function filter(input, env)
                     end
                     yield(cand)
                 else
-                    -- 蝦米完整匹配：暫存
                     if exact_flushed then
                         yield(cand)
                     else
@@ -105,16 +133,14 @@ local function filter(input, env)
         end
     end
 
-    -- 輸出剩餘的完整匹配（如果沒有蝦米補字的情況）
+    sort_custom_candidates(custom_exact, input_code)
+    sort_custom_candidates(custom_completion, input_code)
+
     for i = 1, #xiami_exact do yield(xiami_exact[i]) end
     for i = 1, #custom_exact do yield(custom_exact[i]) end
-    -- 輸出自定詞補全
     for i = 1, #custom_completion do yield(custom_completion[i]) end
-    -- 輸出假名
     for i = 1, #kana_cands do yield(kana_cands[i]) end
-    -- 輸出擴充字集
     for i = 1, #ext_cands do yield(ext_cands[i]) end
-    -- 輸出英文
     for i = 1, #english_cands do yield(english_cands[i]) end
 end
 

@@ -58,6 +58,7 @@ engine:
     # - lua_processor@liu_wildcard_processor           # 萬用字元開關（手機用不到）
     # - lua_processor@liu_key_blocker                # 無效輸入遮蔽（防誤觸）- 純中文輸入模式不需要
     - lua_processor@liu_quick_mode_processor         # 處理 ,,sp 切換快打模式
+    - lua_processor@liu_custom_word_processor        # 記錄自訂詞選字，供加詞排序學習使用
     # - lua_processor@liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'（手機用不到）
     # - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'（手機用不到）
     - lua_processor@liu_related_processor            # 輕量智慧排序學習（記錄明確選字）

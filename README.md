@@ -112,6 +112,7 @@
 - 支援標準字碼、簡碼輸入
 - `lime.db` 的 `custom_user` 只匯入多字詞到加詞檔，且數字字根會轉成 `0123456789 -> versfwlcbk`
 - `openxiami_CustomWord.dict.yaml` 只保留 5 碼內的加詞條目，超過 5 碼的對應碼會自動略過
+- `openxiami_CustomWord.dict.yaml` 的候選排序會先以字數較短者優先；若你明確選過某個加詞，同碼下之後會逐步往前排
 - 備份資料庫匯入加詞時，可用 `scripts/import_backup_db_missing_words.py` 只匯入主字典沒有的多字詞，並自動整理折行、空白與特殊字
 - 小狼毫候選過長時改用內建縮寫顯示，選字仍會上完整內容
 - 小狼毫目前改成鍵盤優先選字：滑鼠懸停不改變候選，滾輪只翻頁

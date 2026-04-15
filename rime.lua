@@ -114,6 +114,7 @@ liu_code_decoder_translator = require("liu_code_decoder")
 local liu_custom_word_module = require("liu_custom_word_translator")
 liu_custom_word_translator = liu_custom_word_module.translator
 liu_custom_word_filter = require("liu_custom_word_filter")
+liu_custom_word_processor = require("liu_custom_word_processor")
 liu_add_custom_phrase_translator = require("liu_add_custom_phrase")
 liu_add_custom_phrase_processor = require("liu_add_custom_phrase_processor")
 liu_keypad_selector = require("liu_keypad_selector")
@@ -138,4 +139,3 @@ liu_english_case_filter = require("liu_english_case_filter")
 
 -- 上屏後小步垃圾回收
 liu_gc_processor = require("liu_gc_processor")
-liu_translation_translator = require("liu_translation_translator").translator
