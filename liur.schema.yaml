@@ -85,7 +85,6 @@ engine:
     - affix_segmentor@symbols  # 字母變體（`a，保留）
     - affix_segmentor@code_decode  # 編碼解碼模式 ,,x
     - affix_segmentor@help_mode  # 功能說明 ,,h
-    - affix_segmentor@translation_mode  # Local English to Chinese lookup ,,tr
     - abc_segmentor
     - affix_segmentor@mkst         # 造詞功能（保留）
     - affix_segmentor@liurqry      # 讀音查詢（保留）
@@ -101,7 +100,6 @@ engine:
 #    - script_translator
     - predict_translator
     - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
-    - lua_translator@liu_translation_translator  # Local English to Chinese lookup
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（保留）
     - lua_translator@liu_datetime  # 擴充模式日期時間（保留功能，但選單中不顯示）
@@ -370,7 +368,6 @@ recognizer:
     code_decode: "^,,x[a-z\\-;,']*$"
 # 功能說明引導鍵（,,h）
     help_mode: "^,,h$"
-    translation_mode: "^,,tr[ A-Za-z\-']*$"
 
 # 符號清單配置（只保留字母變體，移除數字編碼符號清單）
 # 注意：只處理字母變體（`a），數字編碼符號清單（`01~`50）已移除
@@ -465,13 +462,6 @@ help_mode:
   tips: "《按鍵說明》▸"
 
 # 預測（聯想字）設定
-translation_mode:
-  tag: translation_mode
-  prefix: ",,tr"
-  suffix: ""
-  alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -'"
-  tips: "[TR]"
-
 predictor:
   db: predict.db
   max_candidates: 23  # 預測候選數量
