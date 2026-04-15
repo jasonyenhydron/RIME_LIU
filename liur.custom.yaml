@@ -1,5 +1,16 @@
 # liur.custom.yaml
 patch:
+  engine/segmentors/+:
+    - affix_segmentor@translation_mode
+  engine/translators/+:
+    - lua_translator@liu_translation_translator
+  recognizer/patterns/translation_mode: "^,,tr[ A-Za-z\\-']*$"
+  translation_mode:
+    tag: translation_mode
+    prefix: ",,tr"
+    suffix: ""
+    alphabet: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ -'"
+    tips: "《英翻中》▸"
   key_binder/bindings/+:
     - { when: always, accept: 'Control+slash', select: easy_en }
     - { when: always, accept: 'Control+Tab', select: easy_en }

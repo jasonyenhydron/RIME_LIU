@@ -138,3 +138,4 @@ liu_english_case_filter = require("liu_english_case_filter")
 
 -- 上屏後小步垃圾回收
 liu_gc_processor = require("liu_gc_processor")
+liu_translation_translator = require("liu_translation_translator").translator
