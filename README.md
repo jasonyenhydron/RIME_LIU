@@ -141,6 +141,22 @@
 補充：
 - `Ctrl+Tab` 可在小狼毫內部方案間切換，目前是 `liur <-> easy_en`
 
+### 新增獨立方案
+
+- [liur_lite.schema.yaml](/D:/APP/rime-liur-lua-master/liur_lite.schema.yaml)：效能優先，預設關閉 `related` 與 `predictor`
+- [liur_full.schema.yaml](/D:/APP/rime-liur-lua-master/liur_full.schema.yaml)：完整功能，開啟 `related` 與 `predictor`
+- [easy_en.schema.yaml](/D:/APP/rime-liur-lua-master/easy_en.schema.yaml)：英文輸入
+
+目前預設方案順序已改為：
+
+1. `liur_lite`
+2. `liur_full`
+3. `easy_en`
+
+補充：
+- `Ctrl+slash` 與 `Ctrl+Tab` 從英文方案切回中文時，會回到 `liur_lite`
+- 舊的 [liur.schema.yaml](/D:/APP/rime-liur-lua-master/liur.schema.yaml) 仍保留，供舊流程相容使用
+
 
 ## 一鍵切換與部署
 
