@@ -61,10 +61,10 @@ engine:
     - lua_processor@liu_custom_word_processor        # 記錄自訂詞選字，供加詞排序學習使用
     # - lua_processor@liu_phonetic_hint_processor      # 讀音查詢模式下屏蔽 ctrl+'（手機用不到）
     # - lua_processor@liu_symbols_processor            # 符號清單模式下屏蔽 ctrl+'（手機用不到）
-    - lua_processor@liu_related_processor            # 輕量智慧排序學習（記錄明確選字）
+    # - lua_processor@liu_related_processor            # 關閉聯想功能
     - lua_processor@liu_phonetic_suffix_processor    # 同音字模式（選中後按 '）
     - lua_processor@liu_gc_processor                 # 上屏後小步垃圾回收
-    - predictor
+    # - predictor
     - key_binder
     
     - speller
@@ -99,7 +99,7 @@ engine:
 #    - echo_translator
 #    - punct_translator
 #    - script_translator
-    - predict_translator
+    # - predict_translator
     - lua_translator@liu_help_translator  # 功能說明（,,h 模式）- 必須在最前面
     # - lua_translator@liu_symbols_hint  # 符號清單提示（手機用不到）
     - lua_translator@liu_letter_variants  # 擴充模式字母變化形（保留）
@@ -121,7 +121,7 @@ engine:
 
   filters:
     - lua_filter@liu_custom_word_filter	#候選排序：漢字 > 自定詞 > 假名 > 擴充 > 英文
-    - lua_filter@liu_related_filter	#輕量智慧排序：70% unigram + 30% bigram
+    # - lua_filter@liu_related_filter	#關閉聯想功能
     - lua_filter@liu_charset_filter	#自定義字符集過濾（CJK Compatibility Forms 視為常用字集）
     # - lua_filter@liu_wildcard_filter	#查碼模式下禁用萬用字元（手機用不到）
     # - lua_filter@liu_wildcard_code_hint	#萬用字元查詢時顯示編碼（手機用不到）
