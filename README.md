@@ -141,6 +141,40 @@
 補充：
 - `Ctrl+Tab` 可在小狼毫內部方案間切換，目前是 `liur <-> easy_en`
 
+
+## 一鍵切換與部署
+
+已提供兩支 PowerShell 腳本：
+
+- [scripts/switch_profile.ps1](/D:/APP/rime-liur-lua-master/scripts/switch_profile.ps1)
+- [scripts/deploy_weasel.ps1](/D:/APP/rime-liur-lua-master/scripts/deploy_weasel.ps1)
+
+用途：
+
+- `Lite`：效能優先，關閉 `related` 與 `predictor`
+- `Full`：完整功能，開啟 `related` 與 `predictor`
+- 同步到 `AppData\Rime` 並重新佈署小狼毫
+
+範例：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\switch_profile.ps1 -Profile Lite -Deploy
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\switch_profile.ps1 -Profile Full -Deploy
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\deploy_weasel.ps1
+```
+
+說明：
+
+- `switch_profile.ps1` 會直接修改 [liur.schema.yaml](/D:/APP/rime-liur-lua-master/liur.schema.yaml) 內 `related` / `predictor` 的開關狀態
+- `-Deploy` 會在切換後自動呼叫部署腳本
+- `deploy_weasel.ps1` 只做同步與重新佈署，不改方案內容
+
 ## 無效鍵屏蔽
 
 帶有「屏蔽無效鍵」的配置提供以下功能：

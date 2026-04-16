@@ -39,7 +39,12 @@ foreach ($file in $rootFiles) {
     }
     $destinationFile = Join-Path $TargetRoot $file.Name
     if ($PSCmdlet.ShouldProcess($destinationFile, "Copy file from $($file.FullName)")) {
-        Copy-Item -LiteralPath $file.FullName -Destination $destinationFile -Force
+        try {
+            Copy-Item -LiteralPath $file.FullName -Destination $destinationFile -Force
+        }
+        catch [System.IO.IOException] {
+            Write-Warning "Skip locked file: $destinationFile"
+        }
     }
 }
 
