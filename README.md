@@ -213,3 +213,29 @@ powershell -ExecutionPolicy Bypass -File .\scripts\deploy_weasel.ps1
 ---
 
 **在 iOS 上享受流暢的蝦米輸入體驗！** 🦐⌨️
+
+### 發佈與重裝流程
+
+文件更新後，正式流程如下：
+
+1. 更新 `*.md`
+2. `git commit`
+3. `git push`
+4. 產生 zip 安裝包
+5. 重新安裝到 `AppData\Rime`
+6. 重新佈署並重啟 `WeaselServer`
+
+指令：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\build_release_package.ps1
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\deploy_weasel.ps1
+```
+
+說明：
+- `build_release_package.ps1` 會在 [dist](/D:/APP/rime-liur-lua-master/dist) 產生 zip 安裝包
+- `deploy_weasel.ps1` 會停止 `WeaselServer`、同步檔案、重新佈署，再重新啟動 `WeaselServer`
+

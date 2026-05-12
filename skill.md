@@ -50,3 +50,11 @@
 - 可補一份 `docs/maintenance.md` 記錄清理策略
 - 可補一份 `docs/release-checklist.md` 記錄每次修改後的檢查項目
 - 可把匯入後的筆數統計自動寫進 Markdown
+
+## 文件更新後固定流程
+
+- 更新 `*.md` 後，若需交付，先 `git commit`、再 `git push`
+- push 完成後執行 [scripts/build_release_package.ps1](/D:/APP/rime-liur-lua-master/scripts/build_release_package.ps1) 產生安裝包
+- 再執行 [scripts/deploy_weasel.ps1](/D:/APP/rime-liur-lua-master/scripts/deploy_weasel.ps1) 重新安裝到 `AppData\Rime`
+- `deploy_weasel.ps1` 會自動停止並重新啟動 `WeaselServer`
+
